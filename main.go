@@ -1,31 +1,31 @@
 package main
 
 import (
-	"flag"
 	"fmt"
-	"os"
-
 	"github.com/foreveryouyou/angego/cmd/commands/web"
+	"github.com/spf13/cobra"
 )
 
 func main() {
-	flag.Parse()
+	var rootCmd = &cobra.Command{Use: "angego"}
+	rootCmd.Long = "小工具,生成自己用的web项目框架(gin)基础代码。"
 
-	args := flag.Args()
-
-	if len(args) < 1 {
-		os.Exit(2)
-		return
+	var cmdWeb = &cobra.Command{
+		Use:   "web",
+		Short: "创建基础web项目",
+		Run: func(cmd *cobra.Command, args []string) {
+			web.Web()
+		},
+	}
+	var cmdApi = &cobra.Command{
+		Use:   "api",
+		Short: "创建基础api项目(暂未实现)",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("暂未实现")
+		},
 	}
 
-	switch args[0] {
-	case "api":
-		fmt.Println("api")
-	case "web":
-		web.Web()
-	case "help":
-		fmt.Println("help")
-	default:
-		fmt.Println("无效参数")
-	}
+	rootCmd.AddCommand(cmdWeb)
+	rootCmd.AddCommand(cmdApi)
+	rootCmd.Execute()
 }
