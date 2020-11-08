@@ -12,7 +12,7 @@ services:
       PORT: 80
       GIN_MODE: release
     ports:
-      - 10080:80
+      - 8080:80
     volumes:
       - ./conf.yml:/app/conf.yml:rw
       - ./static:/app/static:rw
