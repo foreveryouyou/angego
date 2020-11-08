@@ -1,0 +1,3 @@
+### api index
+GET {{host}}/api/home
+Accept: application/json

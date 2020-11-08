@@ -1,0 +1,26 @@
+# https://docs.docker.com/compose/compose-file/
+version: "3.7"
+
+services:
+    {{.DockerNameProd}}:
+    image: {{.DockerNameProd}}:latest
+    container_name: {{.DockerNameProd}}
+    restart: always
+    working_dir: /app
+    environment:
+      GOPROXY: https://goproxy.cn,direct
+      PORT: 80
+      GIN_MODE: release
+    ports:
+      - 10080:80
+    volumes:
+      - ./conf.yml:/app/conf.yml:rw
+      - ./static:/app/static:rw
+      - ./runtime:/app/runtime:rw
+    networks:
+      - web
+    command: [ '/app/app_server' ]
+
+networks:
+  web:
+    external: true

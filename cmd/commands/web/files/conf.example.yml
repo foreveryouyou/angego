@@ -1,0 +1,23 @@
+# 是否生产环境
+IsProd: false
+Port: 80
+# 网站url
+WebUrl: https://a.com
+# 静态资源url
+ResUrl: https://res.a.com
+# MongoDB 配置
+MongoDB:
+  host:
+    - 'mongo:27017'
+  database: demo
+  user: root
+  password: example
+  timeout: 1
+# Redis 配置
+Redis:
+  host: redis5
+  port: 6379
+  password: example
+  database: 0
+  maxIdle: 20
+  maxActive: 0

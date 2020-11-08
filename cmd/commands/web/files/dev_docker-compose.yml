@@ -1,0 +1,28 @@
+# https://docs.docker.com/compose/compose-file/
+version: "3.7"
+
+services:
+    {{.DockerNameDev}}:
+    build:
+      context: .
+      dockerfile: dev_Dockerfile
+    container_name: {{.DockerNameDev}}
+    restart: always
+    working_dir: /app
+    environment:
+      GOPROXY: https://goproxy.cn,direct
+      PORT: 80
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/app/:rw
+    networks:
+      - web
+      - db
+    command: [ ]
+
+networks:
+  web:
+    external: true
+  db:
+    external: true
