@@ -134,6 +134,7 @@ func GenFile(dir, name string) error {
 	if name == "README.md" {
 		code = string(data)
 		code = strings.ReplaceAll(code, "{{.AppName}}", AppName)
+		code = strings.ReplaceAll(code, "{{.DockerNameDev}}", DockerNameDev)
 		createdAt := time.Now().Format("2006-01-02 15:04:05")
 		code = strings.ReplaceAll(code, "{{.CreatedAt}}", createdAt)
 	}
