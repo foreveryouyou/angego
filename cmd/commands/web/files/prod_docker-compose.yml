@@ -2,7 +2,7 @@
 version: "3.7"
 
 services:
-    {{.DockerNameProd}}:
+  {{.DockerNameProd}}:
     image: {{.DockerNameProd}}:latest
     container_name: {{.DockerNameProd}}
     restart: always
