@@ -17,6 +17,7 @@
 // files/global/conf.go
 // files/global/consts.go
 // files/go.mod
+// files/go.sum
 // files/libs/aes.go
 // files/libs/mongo.go
 // files/libs/redis.go
@@ -450,6 +451,26 @@ func goMod() (*asset, error) {
 	}
 
 	info := bindataFileInfo{name: "go.mod", size: 694, mode: os.FileMode(420), modTime: time.Unix(1604725921, 0)}
+	a := &asset{bytes: bytes, info: info}
+	return a, nil
+}
+
+var _goSum = []byte("\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\x01\x00\x00\xff\xff\x00\x00\x00\x00\x00\x00\x00\x00")
+
+func goSumBytes() ([]byte, error) {
+	return bindataRead(
+		_goSum,
+		"go.sum",
+	)
+}
+
+func goSum() (*asset, error) {
+	bytes, err := goSumBytes()
+	if err != nil {
+		return nil, err
+	}
+
+	info := bindataFileInfo{name: "go.sum", size: 0, mode: os.FileMode(420), modTime: time.Unix(1604830466, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -943,6 +964,7 @@ var _bindata = map[string]func() (*asset, error){
 	"global/conf.go":                 globalConfGo,
 	"global/consts.go":               globalConstsGo,
 	"go.mod":                         goMod,
+	"go.sum":                         goSum,
 	"libs/aes.go":                    libsAesGo,
 	"libs/mongo.go":                  libsMongoGo,
 	"libs/redis.go":                  libsRedisGo,
@@ -1030,6 +1052,7 @@ var _bintree = &bintree{nil, map[string]*bintree{
 		"consts.go": &bintree{globalConstsGo, map[string]*bintree{}},
 	}},
 	"go.mod": &bintree{goMod, map[string]*bintree{}},
+	"go.sum": &bintree{goSum, map[string]*bintree{}},
 	"libs": &bintree{nil, map[string]*bintree{
 		"aes.go":   &bintree{libsAesGo, map[string]*bintree{}},
 		"mongo.go": &bintree{libsMongoGo, map[string]*bintree{}},
