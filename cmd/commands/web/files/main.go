@@ -31,7 +31,7 @@ func init() {
 	// do something here to set environment depending on an environment variable
 	// or command-line flag
 	// 初始化全局配置
-	global.InitConfig()
+	global.InitConfig("./conf.yml")
 	if global.SConf.IsProd {
 		log.SetFormatter(&log.JSONFormatter{})
 	} else {

@@ -1,6 +1,7 @@
 package global
 
 import (
+	"github.com/ghodss/yaml"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
@@ -26,9 +27,8 @@ var SConf = &SiteConfig{
 }
 
 // InitConfig 初始化站点配置
-func InitConfig() {
-	file := "./conf.yml"
-	err := initConf(file, &SConf)
+func InitConfig(configFile string) {
+	err := initConf(configFile, &SConf)
 	if err != nil {
 		log.Fatal("配置初始化失败:", err)
 	}
