@@ -5,6 +5,7 @@ import (
 )
 
 type RouteA struct {
+	BaseController
 }
 
 func (p RouteA) Index(ctx *gin.Context) {
