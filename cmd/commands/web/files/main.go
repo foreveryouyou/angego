@@ -1,18 +1,18 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
+	"io"
+	"os"
+	"time"
 
 	"{{.ModuleName}}/global"
 	"{{.ModuleName}}/www"
 )
 
 func main() {
-	if global.SConf.IsProd {
-		gin.SetMode(gin.ReleaseMode)
-	}
-
 	// Default 使用 Logger 和 Recovery 中间件
 	app := gin.Default()
 	www.RegisterRoutes(app)
@@ -33,7 +33,20 @@ func init() {
 	// 初始化全局配置
 	global.InitConfig("./conf.yml")
 	if global.SConf.IsProd {
+		gin.SetMode(gin.ReleaseMode)
+	}
+	// 设置不同运行模式的配置
+	if gin.Mode() == gin.ReleaseMode {
+		log.Info("开始运行...")
+		log.SetLevel(log.WarnLevel)
 		log.SetFormatter(&log.JSONFormatter{})
+		// 设置gin_log
+		logFileName := fmt.Sprintf("./runtime/gin_http_%s.log", time.Now().Format("20060102150405"))
+		logFile, err := os.Create(logFileName)
+		if err != nil {
+			log.Fatal("gin_http_log文件创建失败", err)
+		}
+		gin.DefaultWriter = io.MultiWriter(logFile)
 	} else {
 		// The TextFormatter is default, you don't actually have to do this.
 		log.SetFormatter(&log.TextFormatter{})
