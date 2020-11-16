@@ -19,7 +19,7 @@ services:
       - ./runtime:/app/runtime:rw
     networks:
       - web
-    command: [ '/app/app_server' ]
+    command: [  ]
 
 networks:
   web:

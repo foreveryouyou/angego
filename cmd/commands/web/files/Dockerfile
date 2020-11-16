@@ -5,15 +5,14 @@
 #RUN apk add -U git
 FROM exidakeng/golang:alpine AS build-golang
 ## goCache 复用
-WORKDIR /go/cache
-ADD go.mod .
-ADD go.sum .
+WORKDIR /app
+## 复用 go.mod 缓存
+COPY go.mod go.sum ./
 RUN go mod download
 #RUN go get -u github.com/swaggo/swag/cmd/swag
 
-###
-ADD . /go/src/app
-WORKDIR /go/src/app
+### 复制应用全部文件
+COPY . /app
 #RUN swag init
 ### LDFlags会被`docker build --rm --build-arg`中的LDFlags替换
 ARG LDFlags="-s -w"
@@ -23,8 +22,9 @@ RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="$LDFlags" -o app_se
 #FROM alpine
 #RUN apk add -U tzdata
 #RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
-FROM exidakeng/alpine
-COPY --from=build-golang /go/src/app /app
+#FROM exidakeng/alpine
+FROM scratch
+COPY --from=build-golang /etc/localtime /etc/localtime
+COPY --from=build-golang /app /app
 WORKDIR /app
-EXPOSE 80
-#CMD [ "sh", "-c", "/app/app_server" ]
+ENTRYPOINT [ "/app/app_server" ]
