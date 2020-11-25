@@ -2,13 +2,10 @@
 FROM exidakeng/golang:alpine
 RUN go version > /home/go_version
 
-WORKDIR /go/cache
-ADD go.mod .
-ADD go.sum .
+WORKDIR /app
+COPY go.mod go.sum ./
 RUN go mod download
 
-WORKDIR /app
 ARG PORT=80
-
 EXPOSE ${PORT}
 CMD [ "/bin/sh", "-c", "tail -f /home/go_version" ]

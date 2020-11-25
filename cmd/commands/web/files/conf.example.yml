@@ -21,3 +21,12 @@ Redis:
   database: 0
   maxIdle: 20
   maxActive: 0
+# 阿里云Oss配置
+AliOss:
+  accessKeyId:
+  accessKeySecret:
+  bucketName:
+  endpoint: oss-cn-shanghai.aliyuncs.com
+  # host的格式为 bucketName.endpoint: http://<bucketName>.oss-cn-shanghai.aliyuncs.com
+  #host: https://<bucketName>.oss-cn-shanghai.aliyuncs.com
+  host:

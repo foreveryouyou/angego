@@ -4,3 +4,4 @@
 # 运行时目录
 /runtime/*
 !/runtime/.gitkeep
+/tmp
